@@ -1,3 +1,4 @@
-Windows/windows.tfvars
-*/*.terraform*
-*/*.tfstate*
+proxmox.auto.tfvars
+*.terraform*
+*.tfstate*
+*.auto.tfvars
