@@ -8,6 +8,7 @@ Ce projet permet de **déployer automatiquement plusieurs machines
 virtuelles** sur un cluster **Proxmox VE** grâce à **Terraform**.\
 Le module gère la création de VMs à partir de templates, avec
 configuration CPU/RAM, disques, cartes réseau, Cloud-Init, etc.
+
 ---
 
 ## 1. Structure du projet
