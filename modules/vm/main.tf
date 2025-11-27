@@ -56,7 +56,7 @@ resource "proxmox_vm_qemu" "vm" {
 
   # Réseau
   dynamic "network" {
-    for_each = { for idx, nic in var.nics : idx => nic }
+    for_each = { for idx, network in var.networks : idx => network }
     content {
       id     = network.key
       model  = network.value.model

@@ -15,7 +15,7 @@ vms = {
       }
     ]
 
-    nics = [
+    networks = [
       {
         model    = "virtio"
         bridge   = "vmbr0"

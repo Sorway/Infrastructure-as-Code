@@ -61,7 +61,7 @@ variable "vms" {
       storage = optional(string)
     })), [])
 
-    nics = optional(list(object({
+    networks = optional(list(object({
       model    = string
       bridge   = string
       vlan_tag = optional(number)

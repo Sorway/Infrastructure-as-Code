@@ -24,8 +24,8 @@ locals {
         }
       ]
 
-      nics = [
-        for n in try(v.nics, []) : {
+      networks = [
+        for n in try(v.networks, []) : {
           model    = n.model
           bridge   = n.bridge
           vlan_tag = try(n.vlan_tag, null)
@@ -67,7 +67,7 @@ module "VirtualMachine" {
   balloon_mb = each.value.balloon_mb
 
   disks = each.value.disks
-  nics  = each.value.nics
+  networks  = each.value.networks
   dvd   = each.value.dvd
 
   ciuser     = each.value.ciuser

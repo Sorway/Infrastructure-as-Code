@@ -80,7 +80,7 @@ variable "cloudinit_storage" {
   default = "local-lvm"
 }
 
-variable "nics" {
+variable "networks" {
   type = list(object({
     model    = string
     bridge   = string
