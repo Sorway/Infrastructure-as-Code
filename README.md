@@ -4,7 +4,7 @@
     <img src="https://img.shields.io/badge/terraform-%235835CC.svg?style=for-the-badge&logo=terraform&logoColor=white"/>
 </p>
 
-Ce projet automatise le **déploiement de machines virtuelles** sur un cluster **Proxmox VE** via **Terraform**, avec configuration complète (CPU, RAM, disques, réseau, Cloud-Init).
+Ce projet automatise le **déploiement de machines virtuelles** sur un cluster **Proxmox VE** via **Terraform**, avec configuration complète (CPU, RAM, disques, réseau, Cloud-Init).\
 Il inclut aussi une **intégration FortiGate automatique** : création d’objets d’adresses et ajout dans les groupes adaptés selon le type de VM (Windows ou Linux).
 
 Fonctionnement :
