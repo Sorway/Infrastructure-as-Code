@@ -4,62 +4,105 @@
     <img src="https://img.shields.io/badge/terraform-%235835CC.svg?style=for-the-badge&logo=terraform&logoColor=white"/>
 </p>
 
-Ce projet permet de déployer automatiquement une VM **Windows Server 2022** sur un cluster **Proxmox VE** en utilisant **Terraform** (Infrastructure as Code).
-
+Ce projet permet de **déployer automatiquement plusieurs machines
+virtuelles** sur un cluster **Proxmox VE** grâce à **Terraform**.\
+Le module gère la création de VMs à partir de templates, avec
+configuration CPU/RAM, disques, cartes réseau, Cloud-Init, etc.
 ---
 
 ## 1. Structure du projet
 
-- `main.tf`  
-  Définition des ressources principales (VM Windows Server 2022, disque, réseau, etc.).
+-   **main.tf**\
+    Contient la boucle Terraform qui crée toutes les VMs définies dans
+    la variable `vms`.
 
-- `provider.tf`  
-  Configuration du provider Proxmox (URL de l’API, token, etc.).
+-   **provider.tf**\
+    Configuration du provider Proxmox (API, token...).
 
-- `variables.tf`  
-  Déclaration de toutes les variables utilisées (nom de la VM, ID du nœud, stockage, réseau, template, credentials…).
+-   **variables.tf**\
+    Définit la variable `vms` (map d'objets) et les paramètres globaux.
 
-- `exemple.tfvars`  
-  Exemple de fichier de variables, à copier/adapter pour créer votre propre `windows.tfvars`.
-
+-   **exemple.tfvars**\
+    Exemple complet montrant comment définir plusieurs VMs.
 ---
 
 ## 2. Prérequis
 
-- Un cluster **Proxmox VE** fonctionnel avec :
-  - Accès à l’interface web et à l’API.
-  - Un **template** ou une **ISO** Windows Server 2022 déjà disponible sur un stockage.
-- Un **token API** Proxmox avec les droits suffisants pour créer des VM.
-- **Terraform** installé sur votre poste :  
-  <https://developer.hashicorp.com/terraform/install>
+## ✔️ 2. Prérequis
+
+### Proxmox VE
+
+-   Un cluster Proxmox fonctionnel.
+-   Un **template** Linux ou Windows (Windows Server 2022 dans
+    l'exemple).
+-   Un **API Token** avec permissions suffisantes (`VM.Clone`,
+    `VM.Config.CDROM`, `VM.Config.CPU`, etc.).
+
+### Terraform
+
+-   Installer Terraform :\
+    https://developer.hashicorp.com/terraform/install
 
 ---
 
-## 3. Initialisation de Terraform
+## 3. Définition des VMs (exemple)
 
-```bash
+``` hcl
+vms = {
+  ad01 = {
+    name      = "ad01"
+    template  = "tpl-windows-server-2022"
+    bios      = "ovmf"
+
+    cores     = 2
+    memory_mb = 4096
+
+    disks = [
+      {
+        slot    = "sata0"
+        size_gb = 50
+        storage = "data"
+        ssd     = true
+      }
+    ]
+
+    nics = [
+      {
+        model    = "virtio"
+        bridge   = "vmbr0"
+        vlan_tag = 20
+      }
+    ]
+
+    ciuser     = "Administrateur"
+    cipassword = "Password123!"
+    ipconfig   = "ip=192.168.1.1/24,gw=192.168.1.254"
+    nameserver = "1.1.1.1 8.8.8.8"
+  }
+}
+```
+
+## 4. Initialisation de Terraform
+
+``` bash
 terraform init
 ```
-Cela télécharge le provider Proxmox et initialise l’environnement.
 
-### Vérification du plan
+### Vérifier le plan
 
-Permet de visualiser les ressources qui seront créées :
-```bash
-terraform plan -var-file="exemple.tfvars"
+``` bash
+terraform plan"
 ```
 
-### Déploiement de la VM Windows
+### Déployer
 
-Exécuter le déploiement :
-```bash
-terraform apply -var-file="exemple.tfvars"
+``` bash
+terraform apply"
 ```
 
-Acceptez avec ``yes`` si tout est correct.
-➡️ La VM Windows Server 2022 est ensuite créée sur Proxmox.
+---
 
-### Suppression de la VM
+## 5. Suppression de la VM
 
 Pour détruire la VM générée :
 ```bash
@@ -67,3 +110,11 @@ terraform destroy -var-file="exemple.tfvars"
 ```
 ⚠️ Action irréversible : la VM sera supprimée définitivement.
 
+---
+
+## 6. Points importants
+
+-   Support complet multi-VM via `for_each`.
+-   Cloud-Init fully intégré (user, mdp, IP, DNS).
+-   Compatible Windows & Linux selon le template.
+-   Support multi-disques, multi-nics, VLAN, UEFI/BIOS.
