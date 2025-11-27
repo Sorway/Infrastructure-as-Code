@@ -1,4 +1,4 @@
-# Déploiement d’un serveur **Windows Server 2022** sur **Proxmox** avec Terraform
+# Automatisation du Déploiement de VMs Windows & Linux sur Proxmox avec Terraform
 
 <p>
     <img src="https://img.shields.io/badge/terraform-%235835CC.svg?style=for-the-badge&logo=terraform&logoColor=white"/>
