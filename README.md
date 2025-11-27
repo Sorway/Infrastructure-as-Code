@@ -4,15 +4,13 @@
     <img src="https://img.shields.io/badge/terraform-%235835CC.svg?style=for-the-badge&logo=terraform&logoColor=white"/>
 </p>
 
-Ce projet permet de **déployer automatiquement plusieurs machines
-virtuelles** sur un cluster **Proxmox VE** grâce à **Terraform**.\
-Le module gère la création de VMs à partir de templates, avec
-configuration CPU/RAM, disques, cartes réseau, Cloud-Init, etc.
+Ce projet automatise le **déploiement de machines virtuelles** sur un cluster **Proxmox VE** via **Terraform**, avec configuration complète (CPU, RAM, disques, réseau, Cloud-Init).
+Il inclut aussi une **intégration FortiGate automatique** : création d’objets d’adresses et ajout dans les groupes adaptés selon le type de VM (Windows ou Linux).
 
-Il gère :
--   Le **clonage depuis un template** (Windows ou Linux)
--   La configuration **CPU / RAM / Disques / Réseau / Cloud-Init**
--   **L'intégration automatique dans FortiGate** : ➜ Lorsqu'une VM est
+Fonctionnement :
+-   **Clonage depuis un template** (Windows ou Linux)
+-   Configuration **CPU / RAM / Disques / Réseau / Cloud-Init**
+-   **Intégration automatique dans FortiGate** : ➜ Lorsqu'une VM est
     créée, un **objet d'adresse** est généré automatiquement dans
     FortiGate, puis ajouté **dans le bon groupe d'adresses** selon le
     type de VM (Linux ou Windows)
@@ -139,13 +137,6 @@ Lors de la création d'une VM :
     -   Groupe **VM Windows** si le template est Windows
     -   Groupe **VM Linux** si le template est Linux
 
-Cela permet : - Une gestion propre et automatique des règles firewall -
-Une classification automatique des serveurs - Une cohérence totale entre
+Cela permet : Une gestion propre et automatique des règles firewall,
+une classification automatique des serveurs, une cohérence totale entre
 l'infrastructure Proxmox et FortiGate
-
-## 7. Points importants
-
--   Support complet multi-VM via `for_each`.
--   Cloud-Init fully intégré (user, mdp, IP, DNS).
--   Compatible Windows & Linux selon le template.
--   Support multi-disques, multi-nics, VLAN, UEFI/BIOS.
