@@ -41,6 +41,7 @@ locals {
       ciuser     = try(v.ciuser, null)
       cipassword = try(v.cipassword, null)
       ipconfig  = try(v.ipconfig, null)
+      nameserver = try(v.nameserver, null)
       sshkeys    = try(v.sshkeys, null)
     }
   }
@@ -72,5 +73,6 @@ module "VirtualMachine" {
   ciuser     = each.value.ciuser
   cipassword = each.value.cipassword
   ipconfig  = each.value.ipconfig
+  nameserver = each.value.nameserver
   sshkeys    = each.value.sshkeys
 }
