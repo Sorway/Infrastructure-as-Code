@@ -3,6 +3,8 @@ locals {
     for k, v in var.vms : k => {
       name        = v.name
       vmid        = v.vmid
+      os_type      = v.os_type
+      fw_interface = try(v.fw_interface, "")
       bios        = try(v.bios, null)
       node        = coalesce(try(v.node, null), var.default_node)
       pool        = try(v.pool, null)
@@ -45,6 +47,23 @@ locals {
       sshkeys    = try(v.sshkeys, null)
     }
   }
+
+  vm_ip_cidrs = {
+    for name, v in local.vms_normalized : name =>
+      element(
+        split("=", element(split(",", v.ipconfig), 0)),
+        1
+      )
+  }
+
+  fortigate_objects = {
+    for name, v in local.vms_normalized : name => {
+      os_type = v.os_type
+      subnet = "${element(split("/", local.vm_ip_cidrs[name]), 0)} 255.255.255.255"
+      associated_interface = v.fw_interface
+    }
+    if v.ipconfig != ""
+  }
 }
 
 module "VirtualMachine" {
@@ -75,4 +94,14 @@ module "VirtualMachine" {
   ipconfig  = each.value.ipconfig
   nameserver = each.value.nameserver
   sshkeys    = each.value.sshkeys
+}
+
+module "FortiGate" {
+  source = "./modules/fortigate"
+
+  vm_objects         = local.fortigate_objects
+  linux_group_name   = var.fortigate_linux_group
+  windows_group_name = var.fortigate_windows_group
+
+  vdomparam           = var.fortigate_vdom
 }

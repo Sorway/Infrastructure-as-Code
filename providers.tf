@@ -6,6 +6,11 @@ terraform {
       source  = "Telmate/proxmox"
       version = "3.0.2-rc05"
     }
+
+    fortios = {
+      source  = "fortinetdev/fortios"
+      version = ">= 1.23.0"
+    }
   }
 
   backend "s3" {}
@@ -16,4 +21,10 @@ provider "proxmox" {
   pm_api_token_id     = var.pm_api_token_id
   pm_api_token_secret = var.pm_api_token_secret
   pm_tls_insecure     = false
+}
+
+provider "fortios" {
+  hostname     = var.fortigate_host
+  token        = var.fortigate_token
+  insecure     = var.fortigate_insecure
 }

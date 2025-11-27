@@ -1,6 +1,7 @@
 vms = {
   ad01 = {
     name      = "ad01"
+    os_type   = "windows"
     template  = "tpl-windows-server-2022"
     bios      = "ovmf"
 

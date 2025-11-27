@@ -15,6 +15,39 @@ variable "pm_api_token_secret" {
   sensitive   = true
 }
 
+# Connexion FortiGate
+variable "fortigate_host" {
+  description = "Adresse IP ou nom d'hôte du FortiGate"
+  type        = string
+}
+
+variable "fortigate_token" {
+  description = "Token d'authentification pour l'API FortiOS"
+  type        = string
+  sensitive   = true
+}
+
+variable "fortigate_insecure" {
+  description = "Autoriser les connexions HTTPS non sécurisées (insecure = true)"
+  type        = bool
+  default     = false
+}
+
+variable "fortigate_vdom" {
+  type    = string
+  default = "root"
+}
+
+variable "fortigate_linux_group" {
+  type    = string
+  default = "VM Linux"
+}
+
+variable "fortigate_windows_group" {
+  type    = string
+  default = "VM Linux"
+}
+
 # Defaults cluster
 variable "default_node" {
   type        = string
@@ -43,6 +76,7 @@ variable "vms" {
   type = map(object({
     name   = string
     vmid   = optional(number)
+    os_type = string
     bios   = optional(string)
     template   = string
     clone_type = optional(string, "full")
@@ -56,7 +90,7 @@ variable "vms" {
     balloon_mb = optional(number, 0)
 
     disks = optional(list(object({
-      slot    = string      # ex: "scsi1", "sata1"
+      slot    = string
       size_gb = number
       storage = optional(string)
     })), [])
@@ -77,10 +111,12 @@ variable "vms" {
     cloudinit_disk_slot    = optional(string)
     cloudinit_storage      = optional(string)
 
-    ipconfig  = optional(string)
-    nameserver = optional(string)
+    ipconfig  = string
+    nameserver = string
     ciuser     = optional(string)
     cipassword = optional(string)
     sshkeys    = optional(string)
+
+    fw_interface = optional(string)
   }))
 }
