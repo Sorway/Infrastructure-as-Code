@@ -12,7 +12,6 @@ vms = {
         slot    = "sata0"
         size_gb = 50
         storage = "data"
-        ssd     = true
       }
     ]
 
