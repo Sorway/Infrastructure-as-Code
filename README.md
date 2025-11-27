@@ -29,8 +29,6 @@ configuration CPU/RAM, disques, cartes réseau, Cloud-Init, etc.
 
 ## 2. Prérequis
 
-## ✔️ 2. Prérequis
-
 ### Proxmox VE
 
 -   Un cluster Proxmox fonctionnel.
