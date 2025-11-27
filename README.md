@@ -105,7 +105,7 @@ terraform apply"
 
 Pour détruire la VM générée :
 ```bash
-terraform destroy -var-file="exemple.tfvars"
+terraform destroy"
 ```
 ⚠️ Action irréversible : la VM sera supprimée définitivement.
 
