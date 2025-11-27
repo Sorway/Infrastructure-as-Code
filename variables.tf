@@ -15,35 +15,6 @@ variable "pm_api_token_secret" {
   sensitive   = true
 }
 
-# Bucket S3
-variable "s3_endpoint" {
-  description = "Endpoint S3 pour MinIO"
-  type        = string
-}
-
-variable "s3_bucket" {
-  description = "Nom du bucket S3 pour stocker le state Terraform"
-  type        = string
-}
-
-variable "s3_key" {
-  description = "Chemin/clé du fichier terraform.tfstate dans le bucket"
-  type        = string
-}
-
-variable "s3_access_key" {
-  description = "Access key MinIO"
-  type        = string
-  sensitive   = true
-}
-
-variable "s3_secret_key" {
-  description = "Secret key MinIO"
-  type        = string
-  sensitive   = true
-}
-
-
 # Defaults cluster
 variable "default_node" {
   type        = string
