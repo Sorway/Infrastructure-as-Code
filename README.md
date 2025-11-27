@@ -90,13 +90,13 @@ terraform init
 ### Vérifier le plan
 
 ``` bash
-terraform plan"
+terraform plan
 ```
 
 ### Déployer
 
 ``` bash
-terraform apply"
+terraform apply
 ```
 
 ---
@@ -105,7 +105,7 @@ terraform apply"
 
 Pour détruire la VM générée :
 ```bash
-terraform destroy"
+terraform destroy
 ```
 ⚠️ Action irréversible : la VM sera supprimée définitivement.
 
