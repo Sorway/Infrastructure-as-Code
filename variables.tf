@@ -80,6 +80,7 @@ variable "vms" {
     bios   = optional(string)
     template   = string
     clone_type = optional(string, "full")
+    fw_interface = optional(string)
 
     node        = optional(string)
     pool        = optional(string)
@@ -116,7 +117,5 @@ variable "vms" {
     ciuser     = optional(string)
     cipassword = optional(string)
     sshkeys    = optional(string)
-
-    fw_interface = optional(string)
   }))
 }
