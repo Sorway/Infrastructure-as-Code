@@ -28,10 +28,6 @@ resource "fortios_firewall_address" "vm" {
 resource "fortios_firewall_addrgrp" "linux_group" {
   count = length(local.linux_vms) > 0 ? 1 : 0
 
-  lifecycle {
-    prevent_destroy = true
-  }
-
   vdomparam = var.vdomparam != "" ? var.vdomparam : null
 
   name  = var.linux_group_name
@@ -51,10 +47,6 @@ resource "fortios_firewall_addrgrp" "linux_group" {
 
 resource "fortios_firewall_addrgrp" "windows_group" {
   count = length(local.windows_vms) > 0 ? 1 : 0
-
-  lifecycle {
-    prevent_destroy = true
-  }
 
   vdomparam = var.vdomparam != "" ? var.vdomparam : null
 
