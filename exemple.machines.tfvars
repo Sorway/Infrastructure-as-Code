@@ -30,8 +30,8 @@ vms = {
     ipconfig   = "ip=192.168.1.1/24,gw=192.168.1.254"
     nameserver = "1.1.1.1 8.8.8.8"
   }
-  VL-TEST = {
-    name      = "VL-TEST"
+  test-debian = {
+    name      = "test-debian"
     os_type   = "linux"
     template  = "tmpl-debian-13"
     bios      = "seabios"
